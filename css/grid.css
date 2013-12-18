@@ -1,0 +1,173 @@
+/**
+ * CSS for Sudoku game grid.
+ * - fixed size grid for development
+ * - TODO: experiment with responsive grid
+ */
+
+hr {
+    margin-top: 20px;
+}
+
+.block-wrapper {
+    /* height: needs to vary for #grid and #tracker, both of class .block-wrapper */
+    /* max-width: 600px; */
+    /* min-width: 400px; */
+    width: 94%;   /* approx. 52% of .container #page 950px set by screen.css  */
+    border: groove 5px;
+    margin: 10px;
+    padding: 0;
+    float: left;
+    box-shadow: 10px 10px 5px #888888;
+}
+
+.block {
+    width: 32.8%;   /* was 160 */
+    height: 32.8%;
+    border: solid 1px;
+    margin: 0;
+    padding: 0;
+    float: left;
+}
+
+/* Need this to avoid conflict with regular <input> styles.
+ * - specificity to override regular <input> styles requires fully qualified name.    */
+div.cell,
+input.input-cell {
+    margin: 0;
+    text-align: center;
+    vertical-align: middle;
+    font: normal 18pt Comic Sans MS,Impact,Trebuchet MS,Tahoma, sans-serif;
+}
+
+div.cell {
+    float: left;
+    border: solid 1px;
+}
+
+/* Need this to avoid conflict with regular <input> styles in screen.css
+ * - specificity to override regular <input> styles requires fully qualified name.    */
+input.input-cell {
+    width: 98%;
+    height: 98%;
+    padding: 0;
+}
+
+/* div.cells with an nested <input> need this - */
+.input {
+    padding: 0;  /* no effect? */
+}
+
+/* div.cells with no nested <input> need this - */
+.noinput,
+.pickem {
+    padding-top: 6px;
+    padding-bottom: 2px;
+}
+
+.selected,
+.selected input {
+    background-color: aliceblue;
+    border-color: royalblue;
+}
+
+/* input.current required to override <input> styles in screen.css */
+.current,
+input.current {
+    color: royalblue ;
+}
+
+/* input.current required to override <input> styles in screen.css */
+.invalid,
+input.invalid {
+    color: red;
+}
+
+.readonly,
+.readonly input {
+background-color: #f8f8f8;
+}
+
+/* #game, #game-btns & #sidebar comprise entire #page width  */
+#game {
+    width: 522px;   /* approx. 55% of .container #page 950px set by screen.css  */
+    float: left;
+    margin: 0;
+}
+
+#game-caption {
+    margin-left: 20px;
+}
+
+/* Need to distinguish #grid div.cell from #tracker div.cell to allow % sizing
+ * - #grid div.cell is nested in .block
+ * - .cell.input is required because <input> is class .cell as well
+ * - .cell.noinput is also required due to the issue above                  */
+#grid .cell.input {
+    width: 32%;  /* approx. 51px*/
+    height: 32%;  /* should match width (i.e. a square) */
+}
+
+/* Need .cell.noinput because lack of nested <input> changes things (see above #grid .cell.input) */
+#grid .cell.noinput {
+    width: 32%;  /* approx. 51px*/
+    height: 27.3%;  /* should match width (i.e. a square) */
+}
+
+#tracker {
+    /* #tracker height must float - uses .block-wrapper width */
+    margin-left: 12px;
+    float: left;
+}
+
+/* Need to distinguish #tracker div.cell from #grid div.cell to allow % sizing
+ * - #tracker div.cell is not nested like #grid div.cell           */
+#tracker .cell {
+    width: 10.7%;
+    margin-bottom: 3px;
+    border: inset 1px;
+}
+
+#grid-btns button {
+    text-align:center;
+    float: left;
+    width: 28%;  /* was 150px; */
+    margin-left: 70px;
+    margin-right: 7px;
+    margin-top: 10px;
+    margin-bottom: 10px;
+}
+
+/* #game, #game-btns & #sidebar comprise entire #page width  */
+#game-btns {
+    width: 100px;
+    margin-left: 20px;
+    margin-top: 20px;
+    float: left;
+}
+
+#game-btns button,
+#game-btns select {
+    text-align:center;
+    width: 85px;
+    margin-left: 5px;
+    margin-right: 5px;
+    margin-top: 5px;
+    margin-bottom: 5px;
+}
+
+#grid-save {
+    visibility: hidden;
+}
+
+#timers {
+    text-align: center;
+}
+
+/* #game, #game-btns & #sidebar comprise entire #page width  */
+/* - sidebar needs to mesh with main.css and jui.accordian.css */
+#sidebar {
+    width: 230px;
+    float: right;
+    font-size: 10pt;
+    padding: 0 20px 0 0;
+}

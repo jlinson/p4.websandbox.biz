@@ -1,5 +1,7 @@
 <?php
-/* @var $this SiteController */
+/* @var $this GameController */
+/* @var $dataProvider CActiveDataProvider - OVERRIDDEN */
+/* @var $model Game - if called by actionView($id)    */
 
 $cs=Yii::app()->clientScript;
 $baseUrl = Yii::app()->baseUrl;

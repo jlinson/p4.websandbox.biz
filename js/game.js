@@ -7,7 +7,8 @@
  *
  * Date: 2013-11-30
 
- * references: undoStack[]   (declared in grid.js; see gameClear() below.)
+ * references: grid.js  --> undoStack[]   (declared in grid.js; see gameClear() below.)
+ * references: preferences.js --> nativeTipsDisable()  (declared in preferences.js; see (document).ready() below.)
  */
 
 /**************************************************************************************************
@@ -29,13 +30,29 @@ $( document ).ready( function() {
         gameLoad( loadValue );
 
     } else if (hasLocalStorage()) {
-        // check local storage for preferences settings -
+        // check local storage for keyboard settings -
         var keyboardEnabled = localStorage.SudoSudokuKeyboardEnabled;
         if (keyboardEnabled == "false") {
             // remove the text inputs (only in #grid), change .cell.input class -
             $("input[type='text']").remove();
             $(".cell.input").removeClass( "input" ).addClass( "noinput" );
         }
+
+        // check local storage for tooltips settings -
+        var tooltipsEnabled = localStorage.SudoSudokuTooltipsEnabled;
+
+        // initialize the jui-tooltips REGARDLESS - then disable if necessary -
+        // - this code executes prior to anything placed in  CClientScript::POS_END or CClientScript::POS_READY -
+        $( document ).tooltip({ track: true });
+
+        if (tooltipsEnabled == "false") {
+            // this has benefit of disabling native tooltips as well (except for "disabled" buttons) -
+            $( document ).tooltip( "option", "disabled", true );
+        }
+        // Address jui-tooltip bug: doesn't handle disabled buttons - had to leave out 'disabled' in html (view) -
+        // - now disable 'Undo' and 'Erase' -
+        $("button[name=undo]").prop("disabled", true);
+        $("button[name=erase]").prop("disabled", true);
 
         // check local storage for a prior game
         var savedGameId = localStorage.SudoSudokuGameId;
@@ -54,9 +71,7 @@ $( document ).ready( function() {
         // just load the default game
         gameLoad(0);
     }
-
 });
-
 
 /****************************************************************************************************
  *  getGetValue() - function to parse a key=value array and return value based on key requested

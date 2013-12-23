@@ -11,7 +11,7 @@ $cs->registerScriptFile($baseUrl . '/js/preferences.js', CClientScript::POS_END)
 $cs->registerScript('juiAccordian','$("#sidebar").accordion();', CClientScript::POS_READY);
 $cs->registerCssFile($baseUrl . '/css/grid.css');
 
-// Next line overrides default behavior of appending "- <controller_name>" to the page title - jbl
+// Next line overrides default behavior that appends "- <controller_name>" to the page title - jbl
 $this->pageTitle=Yii::app()->name;
 $headerName = substr(Yii::app()->name, 0, strpos(Yii::app()->name, "("))
 ?>

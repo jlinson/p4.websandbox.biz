@@ -342,8 +342,11 @@ function gameGridSave() {
         }
 
     });
+
+    $("#Game_level_cd").val( $("select[name='level']").val() );
+    $("#Game_grid_string").val( gameString );
     console.log( gameString );
-    alert("Game string in console.");
+    alert("Game string ready to preview in 'Save Grid' form.");
 }
 
 /***************************************************************************************************

@@ -3,7 +3,7 @@
 class GameController extends Controller
 {
 	/**
-	 * @var string the default layout for the views.  Data views usually use '//layouts/column2' (two-column layout).
+	 * @var string the default layout for the controller's views.  Data views usually use '//layouts/column2' (two-column layout).
 	 * See 'protected/views/layouts/column2.php'.
      * - comment out to override view default to use app default of //layouts/main (do NOT specify main below) - jbl
 	 */
@@ -130,7 +130,10 @@ class GameController extends Controller
 //		$this->render('index',array(
 //			'dataProvider'=>$dataProvider,
 //		));
-        $this->render('index');
+        $this->render('index',array(
+            'model'=>$this->loadModel(1),
+        ));
+//        $this->render('index');
 	}
 
 	/**

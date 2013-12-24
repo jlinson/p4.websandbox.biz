@@ -20,14 +20,13 @@
 	<?php echo $form->errorSummary($model); ?>
 
 	<div class="row">
-		<?php echo $form->labelEx($model,'level_cd'); ?>
-		<?php echo $form->textField($model,'level_cd'); ?>
+		<?php echo $form->hiddenField($model,'level_cd'); ?>
 		<?php echo $form->error($model,'level_cd'); ?>
 	</div>
 
 	<div class="row">
 		<?php echo $form->labelEx($model,'grid_string'); ?>
-		<?php echo $form->textField($model,'grid_string',array('size'=>60,'maxlength'=>400)); ?>
+		<?php echo $form->textArea($model,'grid_string',array('size'=>240,'maxlength'=>400)); ?>
 		<?php echo $form->error($model,'grid_string'); ?>
 	</div>
 

@@ -34,6 +34,7 @@ class Game extends CActiveRecord
 			array('level_cd, grid_string', 'required'),
 			array('level_cd', 'numerical', 'integerOnly'=>true),
 			array('grid_string', 'length', 'max'=>400),
+            array('grid_string', 'unique', 'message' => "This game grid already exists."), // 'className' => 'Game',
 			// The following rule is used by search().
 			// @todo Please remove those attributes that should not be searched.
 			array('id, level_cd, grid_string', 'safe', 'on'=>'search'),
@@ -60,8 +61,8 @@ class Game extends CActiveRecord
 	public function attributeLabels()
 	{
 		return array(
-			'id' => 'ID',
-			'level_cd' => 'Level',
+			'id' => 'Game ID',
+			'level_cd' => 'Game Level',
 			'grid_string' => 'Grid String',
 		);
 	}

@@ -94,6 +94,23 @@ class Game extends CActiveRecord
 		));
 	}
 
+    /**
+     * @return string $sql - SQL to use to retrieve next game based on a given game ID.
+     * - called from controller, but placed here to keep db SQL in the model.
+     */
+    public static function sqlNextGame()
+    {
+        $sql = "SELECT `id`,
+                       `level_cd`,
+                       `grid_string`
+                  FROM `" . Yii::app()->params['tablePrefix'] . "games`
+                 WHERE `id` > :lastId
+                   AND `level_cd` =  :levelCd
+              ORDER BY `id` ASC";
+
+        return $sql;
+    }
+
 	/**
 	 * Returns the static model of the specified AR class.
 	 * Please note that you should have this exact method in all your CActiveRecord descendants!

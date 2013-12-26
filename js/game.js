@@ -2,8 +2,8 @@
  * JavaScript file: game.js
  * - responsible for game grid loading;  associated with <div id="game-btns">
  *
- * - holds demo game arrays in gameStore (legacy implementation)
- * - currently uses ajax calls to the MySQL db as game grid source.
+ * - prior implementation (P3) held demo game arrays in gameStore multi-dimensional array.
+ * - current implementation uses ajax calls to the MySQL db as game grid source.
  *
  * Date: 2013-11-30
  *
@@ -12,10 +12,12 @@
 
 /**************************************************************************************************
  * This event captures any URL parameters for game load direction -
+ * - first trap if URL has Yii parameter
+ *   - only way to file '/views/game/index.php' is through /game/ (index default), /game/index/, or /game/view/
  */
 $( document ).ready( function() {
 
-    // pre-load a game - check the $_GET value -
+    // pre-load a game - check the $_GET value (minus the leading '?') -
     var searchString = window.location.search.substring(1);
     var searchArray = searchString.split('&');
 
@@ -70,6 +72,9 @@ $( document ).ready( function() {
         // just load the default game
         gameLoad(0);
     }
+    // subset of window.location.href - yields /game/<gameId>.html without search string!!!
+    var gameId = window.location.pathname.replace('/game/', '').replace('index/', '').replace('view/', '').replace('.html', '');
+    alert( gameId );  // TODO: process with isNaN( gameId )
 });
 
 /****************************************************************************************************
@@ -180,29 +185,64 @@ function gameLoad( gameId ) {
 
     var gameLevel = 1; // "Beginner" default
 
-    // Set valid gameLevel based on gameId (default, passed by $_GET, or retrieved from localStorage) -
-    if (gameId == 0) {
-        // just load the default game based on level selected -
-        gameLevel = $("select[name='level']").val();
-    } else {
-        gameLevel = String(gameId).substr(0,1);
-        if (gameLevel > 0 && gameLevel < 6) {
-                $("select[name='level']").val(gameLevel);
-        } else {
-            alert("Invalid 'difficulty level' requested. Reverting to default level.");
-            gameLevel = 1;
+//    // Set valid gameLevel based on gameId (default, passed by $_GET, or retrieved from localStorage) -
+//    if (gameId == 0) {
+//        // just load the default game based on level selected -
+//        gameLevel = $("select[name='level']").val();
+//    } else {
+//        gameLevel = String(gameId).substr(0,1);
+//        if (gameLevel > 0 && gameLevel < 6) {
+//                $("select[name='level']").val(gameLevel);
+//        } else {
+//            alert("Invalid 'difficulty level' requested. Reverting to default level.");
+//            gameLevel = 1;
+//        }
+//    }
+//
+//    // Get the gameNdx into gameStore[][] based on valid gameLevel and gameId -
+//    var gameNdx = setLastIndex( gameLevel, gameId );
+//
+//    if (gameNdx != (gameLevel - 1)) {
+//        // must have been forced down a level - re-retrieve the game level -
+//        gameLevel = $("select[name='level']").val();
+//        alert("Did not find requested game. Will load next easier game. Select another level or submit a 'Contact' request. Thank you.");
+//    }
+    gameId = 300;
+    gameLevel = 3;
+    $.ajax({
+        type: 'POST',
+        url: 'http://p4.websandbox.dev/game/AjaxLoad.html',
+//        dataType: "json",
+        beforeSend: function() {
+            // Display a loading message while waiting for the ajax call to complete
+            $('#game-caption').html( "Loading..." );
+        },
+        success: function(response) {
+
+//            $('#game-caption').html(response['grid_string']);
+            $('#game-caption').html(response);
+//            var data = response.replace(/\\"/g, "'");
+//            var jdata = $.parseJSON( data );
+            var jdata = $.parseJSON( response );
+            alert(jdata.level);
+        },
+        statusCode: {
+            403: function() {
+                $('#game-caption').html( "Game access forbidden." );
+            },
+            404: function() {
+                $('#game-caption').html( "Game not found." );
+            }
+        },
+        data: {
+            ajax: 'next',
+            id: gameId,
+            level_cd: gameLevel
         }
-    }
+    }); // end ajax setup
 
-    // Get the gameNdx into gameStore[][] based on valid gameLevel and gameId -
-    var gameNdx = setLastIndex( gameLevel, gameId );
 
-    if (gameNdx != (gameLevel - 1)) {
-        // must have been forced down a level - re-retrieve the game level -
-        gameLevel = $("select[name='level']").val();
-        alert("Did not find requested game. Will load next easier game. Select another level or submit a 'Contact' request. Thank you.");
-    }
-    var gameLevelNm = $("select[name='level'] option:selected").text();
+ /*   var gameLevelNm = $("select[name='level'] option:selected").text();
 
     var levelLen = gameStore[gameNdx][lastIndex[gameNdx]].length;
     var inputMode = getInputMode();
@@ -230,7 +270,7 @@ function gameLoad( gameId ) {
     // - if no localStorage, don't mention it, just move on -
     if (hasLocalStorage()) {
         localStorage.SudoSudokuGameId = gameIdCurrent;
-    }
+    }*/
 }
 
 /****************************************************************************************************

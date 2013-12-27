@@ -125,6 +125,7 @@ class GameController extends Controller
 
 	/**
 	 * Display default game grid - originally listed all models (i.e. game grids).
+     * - game_id = 1 should be empty string with level_cd = 0
 	 */
 	public function actionIndex()
 	{
@@ -186,7 +187,7 @@ class GameController extends Controller
                 if ($model === null)
                 {
                     // May be at end of available games - cycle back to first game id and retry -
-                    $model = Game::model()->findBySql( $sql, array( 'lastId' => -1, 'levelCd' => $_POST['level_cd'] ) );
+                    $model = Game::model()->findBySql( $sql, array( 'lastId' => 0, 'levelCd' => $_POST['level_cd'] ) );
                 }
             }
 

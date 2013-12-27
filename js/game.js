@@ -151,7 +151,7 @@ $("button[name=save]").click( function(){
 });
 
 $("button[name=grid-save]").click( function(){
-    gameGridSave();
+    gameGridPreview();
 });
 
 // ***************************************************************************************************
@@ -360,10 +360,10 @@ function gameSave() {
 }
 
 /****************************************************************************************************
- * gameGridSave() - saves a starting game grid
+ * gameGridPreview() - formats a game grid into a savable string.
  * - for demo, just places string in console.log to manually add to gameStore
  */
-function gameGridSave() {
+function gameGridPreview() {
 
     var gameString = '';
     var inputMode = getInputMode();
@@ -374,10 +374,12 @@ function gameGridSave() {
             gameString += ',';
         }
 
+        // Ensure that all cell values are single quoted within larger double quoted string
+        // - db should only have single quotes saved to avoid JSON parsing issues.
         if (inputMode == "input") {
-            gameString += '"' + $(this).attr("name") + ":" + $(this).val() + '"';
+            gameString += "'" + $(this).attr("name") + ":" + $(this).val() + "'";
         } else {
-            gameString += '"' + $(this).attr("id") + ":" + $(this).text() + '"';
+            gameString += "'" + $(this).attr("id") + ":" + $(this).text() + "'";
         }
 
     });

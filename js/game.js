@@ -286,7 +286,7 @@ function requestLoad( gameId, gameLevel ) {
      *  - because /game is the default controller, multiple URLs to this page result in multiple versions of $.ajax.url: - need to ensure one correct resolution -
      * - javascript equiv of "Yii::app()->request->baseUrl;" in php seems to be "window.location.hostname" - omit .html and .php as Yii doesn't need and might change. -jbl
      */
-    var requestUrl = window.location.hostname + "/game/AjaxLoad"
+    var requestUrl = "http://" + window.location.hostname + "/game/AjaxLoad"
 
     //NOTE: based on jQuery deprecation note - $.ajax().success => .done,  $.ajax().error => .fail
     $.ajax({

@@ -46,7 +46,7 @@ $( document ).ready( function() {
                 // call gameLoad w/ 'blank' params and enable 'grid-save' button - used for game grid entry
                 gameRequested = true;
                 $("#grid-save").css("visibility", "visible").prop("disabled", false);
-                gameLoad( [ 0, 0, '' ] );
+                gameLoad( [ 0, 0, 0 ] );
 
             } else if ($.isNumeric( loadValue )) {
                 // try to load the requested game
@@ -254,7 +254,7 @@ function requestLoad( gameId, gameLevel ) {
 
             // if we don't have a defined level, force the lowest level -
             if (gameLevel == '' || gameLevel == 0) {
-                alert("No game level requested. Reverting to beginner level.");
+                alert("No game level specified. Reverting to beginner level.");
                 gameLevel = 1;  // "Beginner" default
             }
 
@@ -282,11 +282,16 @@ function requestLoad( gameId, gameLevel ) {
         }
     }
 
-    // NOTE: based on jQuery deprecation note - $.ajax().success => .done,  $.ajax().error => .fail
-    // - ensure that url: is relative to current domain to avoid CORS and "No 'Access-Control-Allow-Origin' header is present on the requested resource." failures - jbl
+    /* ISSUE: ensure that url: is relative to current domain to avoid CORS and "No 'Access-Control-Allow-Origin' header is present on the requested resource." failures -
+     *  - because /game is the default controller, multiple URLs to this page result in multiple versions of $.ajax.url: - need to ensure one correct resolution -
+     * - javascript equiv of "Yii::app()->request->baseUrl;" in php seems to be "window.location.hostname" - omit .html and .php as Yii doesn't need and might change. -jbl
+     */
+    var requestUrl = window.location.hostname + "/game/AjaxLoad"
+
+    //NOTE: based on jQuery deprecation note - $.ajax().success => .done,  $.ajax().error => .fail
     $.ajax({
         type: 'POST',
-        url: 'game/AjaxLoad.html',
+        url: requestUrl,
         dataType: 'json',
         beforeSend: function() {
             // Display a loading message while waiting for the ajax call to complete
@@ -457,6 +462,7 @@ function gameGridPreview() {
  * displayLoad() -
  * - called by requestLoad() ajax callback f(n) - on ajax 'fail' (e.g. db is down) -
  * - just displays a hard-coded game of the level indicated in select dropdown.
+ * - default the select 'level' dropdown to 1 (not blank or zero => see setting in _grid.php) - jbl
  */
 function displayLoad() {
 

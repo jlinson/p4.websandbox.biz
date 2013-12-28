@@ -294,6 +294,7 @@ function cellCntFormat( cellCnt ) {
  * @return proceedOK  - boolean true for OK and false for hold.
  *
  * - called by gameGridPreview() and the #Game_grid_string textarea .change event -
+ * - issue: gameRateLevel sets select to levelCd = 0, but "Undefined" is not retrieved into drop-down => 'blank' - jbl
  */
 function gameRateLevel( gameString, alertOn ) {
 

@@ -16,6 +16,7 @@ $cs->registerScriptFile($baseUrl . '/js/grid.js', CClientScript::POS_END);
 $cs->registerCssFile($baseUrl . '/css/grid.css');
 
 // Get data for 'Game Level' drop-down -
+// - coordinate findAll params w/ dropDownList array - pulled [, 'empty' => 'Select Level'] due to initial load confusion - jbl
 $levels = Levels::model()->findAll( 'level_cd > 0', array( 'order' => 'level_cd'));
 $list = CHtml::listData( $levels, 'level_cd', 'level_nm' );
 ?>
@@ -51,7 +52,7 @@ $list = CHtml::listData( $levels, 'level_cd', 'level_nm' );
 <div id="game-btns">
     <hr>
     <strong><?php echo $model->getAttributeLabel('level_cd'); ?>:</strong>
-    <?php echo CHtml::dropDownList( 'level', 'level_cd', $list, array('id' => '1', 'empty' => 'Select Level')); ?>
+    <?php echo CHtml::dropDownList( 'level', 'level_cd', $list, array('id' => '1')); ?>
     <button name="load" type="button" title="Select a game level and click here for new game.">New Game</button>
     <button name="reset" type="button" title="Click here to reset timer and re-start the game.">Reset</button>
     <hr>

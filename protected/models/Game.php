@@ -33,8 +33,8 @@ class Game extends CActiveRecord
 		return array(
 			array('level_cd, grid_string', 'required'),
 			array('level_cd', 'numerical', 'integerOnly' => true),
-			array('grid_string', 'length', 'min' => 135, 'tooShort' => "The game grid must be 17 cells (135 char) minimum.",
-                  'max' => 400, 'tooLong' => "That's just crazy easy. Game grids should be 40 cells (319 char) maximum."),
+			array('grid_string', 'length', 'min' => 101, 'tooShort' => "The game grid must be 17 cells (101 char) minimum.",
+                  'max' => 400, 'tooLong' => "That's just crazy easy. Game grids should be 40 cells (240 char) maximum."),
             array('grid_string', 'unique', 'message' => "This game grid already exists."), // 'className' => 'Game',
 			// The following rule is used by search().
 			// @todo Please remove those attributes that should not be searched.

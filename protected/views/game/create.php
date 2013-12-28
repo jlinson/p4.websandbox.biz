@@ -27,15 +27,15 @@ $this->menu=array(
     <!-- <hr> -->
     <h5 id="game-validation">Level Ranges:</h5>
     <ul id="level-ranges">
-        <li id="max">Maximum - 38 to 50 cells<br>(303 - 400 char)</li>
-        <li id="beg">Beginner - 34 to 37 cells<br>(271 - 295 char)</li>
-        <li id="ezy">Easy - 31 to 33 cells<br>(247 - 263 char)</li>
-        <li id="med">Medium - 28 to 30 cells<br>(223 - 239 char)</li>
-        <li id="hrd">Hard - 25 to 27 cells<br>(199 - 215 char)</li>
-        <li id="exp">Expert - 22 to 24 cells<br>(175 - 191 char)</li>
-        <li id="min">Minimum - 17 to 21 cells<br>(135 - 167 char)</li>
+        <li id="max">Maximum - 38 to 66 cells<br>(227 - 400 char)</li>
+        <li id="beg">Beginner - 34 to 37 cells<br>(203 - 221 char)</li>
+        <li id="ezy">Easy - 31 to 33 cells<br>(185 - 197 char)</li>
+        <li id="med">Medium - 28 to 30 cells<br>(167 - 179 char)</li>
+        <li id="hrd">Hard - 25 to 27 cells<br>(149 - 161 char)</li>
+        <li id="exp">Expert - 22 to 24 cells<br>(131 - 143 char)</li>
+        <li id="min">Minimum - 17 to 21 cells<br>(101 - 125 char)</li>
     </ul>
-    <div>Cells:&nbsp;<span id="cells">0</span>&nbsp;&nbsp;(chars: <span id="chars">0</span>)</div>
+    <div><strong>Cells:&nbsp;<span id="cells">0</span></strong>&nbsp;&nbsp;(chars: <span id="chars">0</span>)</div>
     <br>
     <div id="override">
         <?php echo CHtml::checkBox("rating-override", false); ?>

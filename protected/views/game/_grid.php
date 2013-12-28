@@ -51,7 +51,7 @@ $list = CHtml::listData( $levels, 'level_cd', 'level_nm' );
 <div id="game-btns">
     <hr>
     <strong><?php echo $model->getAttributeLabel('level_cd'); ?>:</strong>
-    <?php echo CHtml::dropDownList( 'level', 'level_cd', $list, array('id' => '1')); ?>
+    <?php echo CHtml::dropDownList( 'level', 'level_cd', $list, array('id' => '1', 'empty' => 'Select Level')); ?>
     <button name="load" type="button" title="Select a game level and click here for new game.">New Game</button>
     <button name="reset" type="button" title="Click here to reset timer and re-start the game.">Reset</button>
     <hr>

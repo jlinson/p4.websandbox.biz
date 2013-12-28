@@ -283,9 +283,10 @@ function requestLoad( gameId, gameLevel ) {
     }
 
     // NOTE: based on jQuery deprecation note - $.ajax().success => .done,  $.ajax().error => .fail
+    // - ensure that url: is relative to current domain to avoid CORS and "No 'Access-Control-Allow-Origin' header is present on the requested resource." failures - jbl
     $.ajax({
         type: 'POST',
-        url: 'http://p4.websandbox.dev/game/AjaxLoad', // .html
+        url: 'game/AjaxLoad.html',
         dataType: 'json',
         beforeSend: function() {
             // Display a loading message while waiting for the ajax call to complete

@@ -6,6 +6,7 @@ class GameController extends Controller
 	 * @var string the default layout for the controller's views.  Data views usually use '//layouts/column2' (two-column layout).
 	 * See 'protected/views/layouts/column2.php'.
      * - comment out to override view default to use app default of //layouts/main (do NOT specify main below) - jbl
+     * - to render column2 menus in views, set $this->layout = '//layouts/column2'; in the specific action below - jbl
 	 */
 	//public $layout='//layouts/column2';
 
@@ -29,16 +30,16 @@ class GameController extends Controller
 	{
 		return array(
 			array('allow',  // allow all users to perform 'index' and 'view' actions
-				'actions'=>array('index','view','ajaxLoad'),
+				'actions'=>array('index','ajaxLoad'),
 				'users'=>array('*'),
 			),
-			array('allow', // allow authenticated user to perform 'create' and 'update' actions
-				'actions'=>array('create','update'),
+			array('allow', // allow authenticated user to perform no special actions (only user - profile)
+				'actions'=>array('view'),
 				'users'=>array('@'),
 			),
-			array('allow', // allow admin user to perform 'admin' and 'delete' actions
-				'actions'=>array('admin','delete'),
-				'users'=>array('admin'),
+			array('allow', // allow admin user to perform 'admin', 'create', 'update' and 'delete' actions
+				'actions'=>array('admin','create','update','delete'),
+				'users'=>array('admin','jbladmin'),
 			),
 			array('deny',  // deny all users
 				'users'=>array('*'),
@@ -63,8 +64,9 @@ class GameController extends Controller
 	}
 
 	/**
-	 * Creates a new model.
+	 * Creates a new model. Special blank game grid for editing.
 	 * If creation is successful, the browser will be redirected to the 'view' page.
+     * - TODO: consider redirecting to another page
 	 */
 	public function actionCreate()
 	{
@@ -92,7 +94,8 @@ class GameController extends Controller
 	 */
 	public function actionUpdate($id)
 	{
-		$model=$this->loadModel($id);
+        $this->layout = '//layouts/column2';
+        $model=$this->loadModel($id);
 
 		// Uncomment the following line if AJAX validation is needed
 		// $this->performAjaxValidation($model);
@@ -145,7 +148,9 @@ class GameController extends Controller
 	 */
 	public function actionAdmin()
 	{
-		$model=new Game('search');
+        $this->layout = '//layouts/column2';
+
+        $model=new Game('search');
 		$model->unsetAttributes();  // clear any default values
 		if(isset($_GET['Game']))
 			$model->attributes=$_GET['Game'];

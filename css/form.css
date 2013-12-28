@@ -165,3 +165,20 @@ div.wide.form .errorMessage {
     color: red;
     font-weight: 700;
 }
+
+#game-grid table {
+    width : 900px;
+    table-layout: fixed;
+}
+
+
+#game-grid #game-grid_c2,
+#game-grid td.grid-cell_c2 {
+    width: 600px;
+}
+
+#game-grid table.items th,
+#game-grid table.items td {
+    overflow: hidden;
+    word-wrap: break-word;
+}

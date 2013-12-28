@@ -3,13 +3,13 @@
 /* @var $model Game */
 
 $this->breadcrumbs=array(
-	'Games'=>array('index'),
 	'Manage',
 );
 
 $this->menu=array(
-	array('label'=>'List Game', 'url'=>array('index')),
-	array('label'=>'Create Game', 'url'=>array('create')),
+	array('label'=>'Play Game', 'url'=>array('/game/index')),
+	array('label'=>'Create Game', 'url'=>array('/game/create')),
+    array('label'=>'Manage Users', 'url'=>Yii::app()->getModule('user')->adminUrl),
 );
 
 Yii::app()->clientScript->registerScript('search', "
@@ -47,7 +47,9 @@ or <b>=</b>) at the beginning of each of your search values to specify how the c
 	'columns'=>array(
 		'id',
 		'level_cd',
-		'grid_string',
+		array( 'name' => 'grid_string',
+            'htmlOptions' => array('class'=>'game-grid_c2'),
+        ),
 		array(
 			'class'=>'CButtonColumn',
 		),

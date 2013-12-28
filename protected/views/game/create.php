@@ -9,13 +9,13 @@ $cs->registerScriptFile($baseUrl . '/js/create.js', CClientScript::POS_END);
 /* --End _grid view-in-view ---------------------------------------------------------------------------- */
 
 $this->breadcrumbs=array(
-	'Games'=>array('index'),
+	'Manage Games'=>array('admin'),
 	'Create',
 );
 
 $this->menu=array(
-	array('label'=>'List Game', 'url'=>array('index')),
-	array('label'=>'Manage Game', 'url'=>array('admin')),
+	array('label'=>'View Game', 'url'=>array('index')),
+	array('label'=>'Manage Games', 'url'=>array('admin')),
 );
 ?>
 

@@ -33,8 +33,9 @@ $this->breadcrumbs=array(
     into this application. It also expected the Blueprint CSS framework. User registration and login were included
     in the application both to demonstrate the capabilities and in anticipation of adding more user-specific
     functionality (e.g. saved games, play history and statistics, etc.) in the future.
-</p><p>
+</p>
     Most of the code for the application (aside from the js/ and the css/ mentioned above) resides in the following files:
+    <hr>
     <ul>
         <li>/protected/config
             <ul><li>main.php</li></ul>
@@ -82,4 +83,4 @@ $this->breadcrumbs=array(
             </ul>
          </li>
     </ul>
-</p>
+

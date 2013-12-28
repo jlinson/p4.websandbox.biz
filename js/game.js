@@ -285,7 +285,7 @@ function requestLoad( gameId, gameLevel ) {
     // NOTE: based on jQuery deprecation note - $.ajax().success => .done,  $.ajax().error => .fail
     $.ajax({
         type: 'POST',
-        url: 'http://p4.websandbox.dev/game/AjaxLoad.html',
+        url: 'http://p4.websandbox.dev/game/AjaxLoad', // .html
         dataType: 'json',
         beforeSend: function() {
             // Display a loading message while waiting for the ajax call to complete
